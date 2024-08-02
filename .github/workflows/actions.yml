@@ -29,7 +29,9 @@ jobs:
         docker-compose --version
 
     - name: Building docker image
-      run: sh script.sh build-image
+      run: |
+        sh script.sh build-image
+        docker images
 
     - name: Start docker container
       run: sh script.sh start
