@@ -1,0 +1,19 @@
+networks:
+  network:  # Define the network
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24  # Define the subnet for the custom network
+
+services:
+  database-container:
+    image: vexeexpress-database-image:latest
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    ports:
+      - "5900:5432"  # Map container port 5432 to host port 5432 (default for PostgreSQL)
+    networks:
+      network:
+        ipv4_address: 10.0.0.2  # Specify the desired IP address for the PostgreSQL container
+    volumes:
+      - ./documentation:/app/documentation
