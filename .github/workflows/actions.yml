@@ -1,27 +1,21 @@
 name: Github actions
-run-name: ${{ github.actor }} is testing Github actions
+
 on:
   push:
     branches:
       - '*'
 
 jobs:
-  build-test-image-container:
+  build:
     name: Build and test docker
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository code
       uses: actions/checkout@v4
 
-    - name: Set up Docker
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker.io
-        sudo systemctl start docker
-        sudo systemctl enable docker
-        sudo usermod -aG docker $USER
-        newgrp docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
     - name: Set up Docker Compose
       run: |
@@ -34,7 +28,7 @@ jobs:
         docker --version
         docker-compose --version
 
-     - name: Building docker image
+    - name: Building docker image
       run: sh script.sh build-image
 
     - name: Start docker container
