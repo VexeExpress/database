@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  build-test-image-container:
+  buildtest:
     name: Build and test docker
     runs-on: ubuntu-22.04
 
