@@ -54,7 +54,7 @@ access_database() {
 }
 
 build_image() {
-	docker buildx build . -t ${PROJECT_IMAGE}
+	docker buildx build . -t ${PROJECT_IMAGE} --load
 }
 
 log_container() {
